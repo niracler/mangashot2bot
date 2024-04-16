@@ -1,0 +1,12 @@
+# shellcheck shell=dash
+
+(
+    mkdir -p "$(x wsroot)/logs"
+    log_path="$(x wsroot)/logs/picgo.$$.log"
+    cd "/Users/niracler/Library/Mobile Documents/iCloud~com~seriflabs~affinityphoto/Documents/漫画表情包-高清版"
+    x fd .jpg | while read -r file; do
+        echo "file: $file" 
+        echo "$file" > /dev/stderr
+        picgo -c "/Users/niracler/Library/Application Support/picgo/data.json" upload "$file" 2>/dev/null
+    done > "$log_path"
+)

@@ -1,0 +1,33 @@
+# shellcheck shell=dash
+
+(
+    log_path="$(x wsroot)/logs/picgo.72828.log"
+    {
+        printf "["
+        cat "${log_path}" | awk '{
+            if ($0 ~ /file: /) {
+                file = $0
+            } else if ($0 ~ /https:\/\//) {
+                n = split($1, parts, /[\/\.]/)
+                id = parts[n-1]
+                caption = substr(file, index(file, "/") + 1)
+                sub(/\.jpg$/, "", caption)
+                dir = substr(file, index(file, ": ") + 2, index(file, "/") - 7)
+                thumbnail_url = substr($0, 1, length($0) - 4) ".th.jpg"
+
+                print "{";
+                print "    \"type\": \"photo\",";
+                print "    \"id\": \"" id "\",";
+                print "    \"title\": \"" dir " - " caption "\",";
+                print "    \"photo_url\": \"" $0 "\",";
+                print "    \"thumbnail_url\": \"" thumbnail_url "\",";
+                print "    \"caption\": \"" caption "\",";
+                print "},";
+
+                # print id "\n" dir " | " caption "\n" file "\n" $0 "\n" caption "\n\n"
+            }
+        }' 
+        printf "]"
+    } |  x jo fmt
+    
+)
