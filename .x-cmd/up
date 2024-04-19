@@ -9,4 +9,6 @@
         echo "$file" > /dev/stderr
         picgo -c "/Users/niracler/Library/Application Support/picgo/data.json" upload "$file" 2>/dev/null
     done > "$log_path"
+
+    # wrangler kv:key put --namespace-id f57c83a8452247d99396c0fcfc50b92e mangaList "$(cat data/image.json)"
 )

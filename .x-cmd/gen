@@ -18,10 +18,10 @@
                 print "{";
                 print "    \"type\": \"photo\",";
                 print "    \"id\": \"" id "\",";
-                print "    \"title\": \"" dir " - " caption "\",";
+                print "    \"title\": \"" caption "\",";
                 print "    \"photo_url\": \"" $0 "\",";
                 print "    \"thumbnail_url\": \"" thumbnail_url "\",";
-                print "    \"caption\": \"" caption "\",";
+                print "    \"caption\": \"" caption "  #" dir "\",";
                 print "},";
 
                 # print id "\n" dir " | " caption "\n" file "\n" $0 "\n" caption "\n\n"
