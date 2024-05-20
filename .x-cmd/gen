@@ -1,7 +1,7 @@
 # shellcheck shell=dash
 
 (
-    log_path="$(x wsroot)/logs/picgo.72828.log"
+    log_path="$(x wsroot)/logs/picgo.17958.log"
     {
         printf "["
         cat "${log_path}" | awk '{
