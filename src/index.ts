@@ -1,6 +1,7 @@
 import { Bot, Context, webhookCallback } from 'grammy'
 import { handleInlineQuery } from './handlers/inlineQuery'
 import { handleDocument } from './handlers/document'
+import { handleDelete } from './handlers/delete'
 
 // Environment interface to hold required environment variables
 export interface Env {
@@ -19,6 +20,7 @@ export default {
 		bot.command("start", async (ctx: Context) => {
 			await ctx.reply("嗨嗨~ 世界，你好呀！(｡♥‿♥｡)")
 		})
+		bot.command("delete", (ctx: Context) => handleDelete(ctx, env))
 
 		bot.on("inline_query", (ctx: Context) => handleInlineQuery(ctx, env))
 		bot.on("message:document", (ctx: Context) => handleDocument(ctx, env))

@@ -83,7 +83,7 @@ function getFileExtension(mimeType: string) {
 }
 
 // Helper function to get file URLs from Telegram
-export async function getTelegramFileUrl(fileId: string, botSecret: string): Promise<string> {
+async function getTelegramFileUrl(fileId: string, botSecret: string): Promise<string> {
     const fileResponse = await fetch(`https://api.telegram.org/bot${botSecret}/getFile?file_id=${fileId}`)
 
     if (!fileResponse.ok) {
