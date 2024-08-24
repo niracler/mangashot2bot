@@ -16,6 +16,7 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
-    "grammy": "^1.22.4"
+    "grammy": "^1.22.4",
+    "telegramify-markdown": "git+ssh://git@github.com/niracler/telegramify-markdown.git#master"
   }
 }
