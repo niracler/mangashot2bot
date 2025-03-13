@@ -1,7 +1,7 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "mangashot2bot"
 main = "src/index.ts"
-compatibility_date = "2024-04-14"
+compatibility_date = "2024-11-12"
 compatibility_flags = ["nodejs_compat"]
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
@@ -69,9 +69,9 @@ database_id = "f4ce2b61-0a31-4e78-8b31-44d013778811"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#kv-namespaces
-[[kv_namespaces]]
-binding = "MANGA_LIST"
-id = "f57c83a8452247d99396c0fcfc50b92e"
+# [[kv_namespaces]]
+# binding = "MANGA_LIST"
+# id = "f57c83a8452247d99396c0fcfc50b92e"
 
 # Bind an mTLS certificate. Use to present a client certificate when communicating with another service.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#mtls-certificates

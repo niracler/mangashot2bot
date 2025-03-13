@@ -47,10 +47,10 @@ export async function handleDocument(ctx: Context, env: Env) {
         // Upsert photo data in the database
         const isUpdate = await upsertPhotoInDatabase(env.DB, file_unique_id, title, r2FileUrl, r2ThumbnailUrl, caption)
         if (isUpdate) {
-            await ctx.reply(telegramifyMarkdown(`嘻嘻~ 已更新图片信息啦！(≧▽≦) ID: \`${file_unique_id}\``),
+            await ctx.reply(telegramifyMarkdown(`嘻嘻~ 已更新图片信息啦！(≧▽≦) ID: \`${file_unique_id}\``, 'escape'),
                 { parse_mode: "MarkdownV2" })
         } else {
-            await ctx.reply(telegramifyMarkdown(`哇~ 已上传新图片哦！(✿◠‿◠) ID: \`${file_unique_id}\``),
+            await ctx.reply(telegramifyMarkdown(`哇~ 已上传新图片哦！(✿◠‿◠) ID: \`${file_unique_id}\``, 'escape'),
                 { parse_mode: "MarkdownV2" })
         }
 

@@ -5,10 +5,9 @@ import { Context } from "grammy"
 // Handle inline queries and respond with relevant results
 export async function handleInlineQuery(ctx: Context, env: Env) {
     if (!ctx.inlineQuery) return
-    const { query, offset: rawOffset, id: inlineQueryId } = ctx.inlineQuery
+    const { query, offset: rawOffset } = ctx.inlineQuery
     const offset = rawOffset ? parseInt(rawOffset, 10) : 0
 
-    // Fetch manga list from the database and KV store
     const mangaList = await fetchMangaList(env)
     const searchResults = getSearchResults(query, mangaList, offset)
 
@@ -18,12 +17,10 @@ export async function handleInlineQuery(ctx: Context, env: Env) {
     })
 }
 
-// Fetch manga list from the database and KV store
 async function fetchMangaList(env: Env): Promise<InlineQueryResultPhoto[]> {
     const dbResults = await env.DB.prepare('SELECT * FROM mangashot ORDER BY updated_at DESC').all()
 
-    // Map database results to the appropriate structure
-    const dbMangaList: InlineQueryResultPhoto[] = dbResults.results.map((entry: any) => ({
+    return dbResults.results.map((entry: any) => ({
         type: 'photo',
         id: entry.id as string,
         title: entry.title as string,
@@ -31,10 +28,6 @@ async function fetchMangaList(env: Env): Promise<InlineQueryResultPhoto[]> {
         photo_url: entry.photo_url as string,
         thumbnail_url: entry.thumbnail_url as string
     }))
-
-    // Combine with KV store results
-    const kvMangaList = (await env.MANGA_LIST.get<InlineQueryResultPhoto[]>('mangaList', 'json')) || []
-    return dbMangaList.concat(kvMangaList)
 }
 
 function getSearchResults(query: string, mangaEntries: InlineQueryResultPhoto[], offset: number) {

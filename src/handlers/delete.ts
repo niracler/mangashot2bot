@@ -14,7 +14,7 @@ export async function handleDelete(ctx: Context, env: Env) {
         // Delete the photo data from the database
         await deletePhotoFromDatabase(env.DB, fileUniqueId)
 
-        await ctx.reply(telegramifyMarkdown(`嘻嘻~ 已删除图片信息啦！(≧▽≦) ID: \`${fileUniqueId}\``),
+        await ctx.reply(telegramifyMarkdown(`嘻嘻~ 已删除图片信息啦！(≧▽≦) ID: \`${fileUniqueId}\``, 'escape'),
             { parse_mode: "MarkdownV2" })
 
     } catch (error) {
