@@ -5,18 +5,24 @@
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
+    "wrangler": "wrangler",
     "start": "wrangler dev",
     "test": "vitest"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.1.0",
-    "@cloudflare/workers-types": "^4.20240405.0",
-    "typescript": "^5.0.4",
-    "vitest": "1.6.1",
-    "wrangler": "^3.0.0"
+    "@cloudflare/vitest-pool-workers": "^0.7.8",
+    "@cloudflare/workers-types": "^4.20250311.0",
+    "typescript": "^5.8.2",
+    "vitest": "3.0.8",
+    "wrangler": "^3.114.1"
   },
   "dependencies": {
-    "grammy": "^1.22.4",
-    "telegramify-markdown": "git+ssh://git@github.com/niracler/telegramify-markdown.git#master"
+    "grammy": "^1.35.0",
+    "telegramify-markdown": "^1.2.2"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
