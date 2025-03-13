@@ -45,7 +45,7 @@ export async function handleDocument(ctx: Context, env: Env) {
         ])
 
         // Upsert photo data in the database
-        const isUpdate = await upsertPhotoInDatabase(env.DB, file_unique_id, title, r2FileUrl, r2ThumbnailUrl, caption)
+        const isUpdate = await upsertPhotoInDatabase(env.DB, env.MANGA_LIST, file_unique_id, title, r2FileUrl, r2ThumbnailUrl, caption)
         if (isUpdate) {
             await ctx.reply(telegramifyMarkdown(`嘻嘻~ 已更新图片信息啦！(≧▽≦) ID: \`${file_unique_id}\``, 'escape'),
                 { parse_mode: "MarkdownV2" })
@@ -97,7 +97,7 @@ async function getTelegramFileUrl(fileId: string, botSecret: string): Promise<st
 }
 
 // Upsert photo information in the database
-async function upsertPhotoInDatabase(db: D1Database, fileUniqueId: string, title: string, photoUrl: string, thumbnailUrl: string, caption: string) {
+async function upsertPhotoInDatabase(db: D1Database, mangaListKV: KVNamespace, fileUniqueId: string, title: string, photoUrl: string, thumbnailUrl: string, caption: string) {
     const existingPhoto = await db.prepare('SELECT * FROM mangashot WHERE id = ?').bind(fileUniqueId).all()
 
     const query = existingPhoto.results.length > 0
@@ -107,6 +107,14 @@ async function upsertPhotoInDatabase(db: D1Database, fileUniqueId: string, title
     await db.prepare(query)
         .bind(title, photoUrl, thumbnailUrl, caption, fileUniqueId)
         .run()
+
+    // Clear KV cache
+    try {
+        await mangaListKV.delete('manga_list_cache')
+        console.log('Cleared manga_list_cache cache')
+    } catch (error) {
+        console.error('Error clearing KV cache:', error)
+    }
 
     return existingPhoto.results.length > 0
 }
