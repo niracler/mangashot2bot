@@ -2,6 +2,10 @@
 
 A Telegram bot that sends manga screenshots.
 
+## preview
+
+<img width="2514" height="2454" alt="CleanShot 2026-02-24 at 15 28 42@2x" src="https://github.com/user-attachments/assets/b8af0245-3766-4a41-a8f4-ed0081eb54e4" />
+
 ## Commands
 
 ```
